@@ -4007,8 +4007,16 @@ unsigned char Game_of_Thrones_8_bit_mod_raw[] = {
 
 int irPin = 7;      //Byta till pin som vi kunde få 31kHz på
 int i = 0;          //Definerar var i vektorn vi börjar läsningen
+int setZero=7;      // 111 i binärkod för att nollställa register
+int prescaler=1;    //Binärt tal mellan 1-6 för att ställa in prescalern
 
 void setup(){
+  
+  //Noollställer bitarna i registret
+  TCCR2B &= ~setZero;
+  
+  //Sätter de tre sista bitarna i registret till prescaler värdet
+  TCCR2B |= prescaler;
   
   //Definerar irPin som en output, skanar koden för att öka dess frekvens
   pinMode(irPin, OUTPUT);
